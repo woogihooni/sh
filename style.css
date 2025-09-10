@@ -1,0 +1,365 @@
+/* 기본 레이아웃 및 폰트 */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* 상단에 정렬 */
+    min-height: 100vh;
+    background-color: #1a1a1a; /* 다크 모드 배경색 */
+    margin: 20px; /* 상하 여백 추가 */
+    font-size: 15px; /* 기본 폰트 크기 조절 */
+    line-height: 1.6; /* 줄 간격 조절 */
+    color: #e0e0e0; /* 기본 텍스트 색상 */
+}
+
+#app {
+    background-color: #2b2b2b; /* 앱 컨테이너 배경색 */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* 그림자도 어둡게 */
+    width: 100%;
+    max-width: 800px;
+    box-sizing: border-box;
+}
+
+h1 { /* ⭐ 추가: h1 스타일 */
+    text-align: center;
+    color: #8bbcdc; /* 제목 색상 */
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #f0f0f0; /* 제목 색상 */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 20px;
+}
+
+.page {
+    display: none;
+}
+
+/* 메인, 퀴즈, 결과 페이지 컨테이너 공통 스타일 */
+.selection-group, .question-container {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #444; /* 테두리 색상 */
+    border-radius: 6px;
+    background-color: #3a3a3a; /* 섹션 배경색 */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #cccccc; /* 라벨 텍스트 색상 */
+}
+
+select, input[type="text"], input[type="number"], textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #555; /* 입력 필드 테두리 */
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #4a4a4a; /* 입력 필드 배경색 */
+    color: #e0e0e0; /* 입력 필드 텍스트 색상 */
+    box-sizing: border-box; /* 패딩 포함 너비 계산 */
+}
+
+textarea {
+    min-height: 100px; /* 해설 입력 필드 최소 높이 */
+    resize: vertical; /* 세로로만 크기 조절 가능 */
+}
+
+/* 버튼 공통 스타일 */
+button {
+    background-color: #4a6fa5; /* 버튼 기본색 */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+	/* margin-right: 10px; - flexbox gap으로 대체 */
+    /* margin-top: 10px; - flexbox gap으로 대체 */
+}
+
+button:hover {
+    background-color: #3b5a8d; /* 버튼 호버색 */
+}
+
+button:disabled {
+    background-color: #555555; /* 비활성화된 버튼 색상 */
+    cursor: not-allowed;
+    color: #aaaaaa;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* 퀴즈 페이지 선택지 스타일 */
+#options-container label {
+    background-color: #4a4a4a; /* 선택지 배경색 */
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-size: 15px;
+    display: block; /* 전체 영역을 클릭 가능하게 */
+    color: #e0e0e0; /* 선택지 텍스트 색상 */
+}
+
+#options-container label:hover {
+    background-color: #5a5a5a; /* 선택지 호버색 */
+}
+
+/* ⭐ 핵심: 라디오 버튼 숨기기 */
+#options-container input[type="radio"] {
+    display: none;
+}
+
+/* ⭐ 추가: 선택된 라벨의 스타일 */
+#options-container input[type="radio"]:checked + span,
+#options-container input[type="radio"]:checked + img {
+    font-weight: bold;
+}
+
+/* ⭐ 추가: 선택지 내 이미지 스타일 */
+.options .option-image {
+    max-width: 150px; /* 이미지 최대 너비 */
+    height: auto; /* 비율 유지 */
+    vertical-align: middle; /* 라디오 버튼과 이미지 수직 정렬 */
+    margin-left: 5px; /* 라디오 버튼과의 간격 */
+    border: 1px solid #eee; /* 이미지 테두리 (선택 사항) */
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.05); /* 그림자 효과 (선택 사항) */
+    border-radius: 3px; /* 살짝 둥근 모서리 */
+}
+
+/* 정답/오답 표시 */
+#options-container label.option-correct {
+    border: 2px solid #28a745;
+    background-color: #386a45;
+    color: #f0f0f0;
+}
+
+#options-container label.option-wrong {
+    border: 2px solid #dc3545;
+    background-color: #8c454f;
+    color: #f0f0f0;
+}
+
+/* 해설 컨테이너 스타일 */
+#explanation-container {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #0056b3; /* 해설 테두리 색상 */
+    background-color: #1a3a5a;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #c0d0f0;
+}
+
+#explanation-container p strong {
+    color: #8bbcdc;
+}
+
+/* 퀴즈 정보 및 제목 스타일 */
+.quiz-info {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #aaaaaa;
+}
+
+#score-display {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #0099ff;
+    margin-bottom: 20px;
+}
+
+/* 메인 페이지 및 모달 내 과목 선택 체크박스 스타일 */
+#subject-checkboxes-container,
+.subject-checkboxes-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #3a3a3a;
+}
+
+.subject-checkboxes-container label,
+.subject-checkboxes-wrapper label {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: #4a4a4a;
+    color: #e0e0e0;
+}
+
+.subject-checkboxes-container label:hover,
+.subject-checkboxes-wrapper label:hover {
+    background-color: #5a5a5a;
+}
+
+/* 체크박스 자체 스타일 */
+#subject-checkboxes-container input[type="checkbox"],
+.subject-checkboxes-wrapper input[type="checkbox"] {
+    margin-right: 5px;
+    width: auto;
+    height: auto;
+    accent-color: #007bff;
+}
+/* 문제와 체크박스 컨테이너 */
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px; /* 문제와 선택지 사이 간격 */
+}
+
+#question-content {
+    margin-right: 10px;
+    flex-grow: 1; /* 남은 공간을 채우도록 설정 */
+    margin-bottom: 0; /* 기본 마진 제거 */
+}
+
+#question-checkbox {
+    width: 20px; /* 크기 조절 */
+    height: 20px; /* 크기 조절 */
+    margin-left: 10px;
+    cursor: pointer;
+    accent-color: #007bff; /* 체크 시 색상 */
+}
+
+/* 퀴즈 컨트롤 버튼 배치 */
+.quiz-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.quiz-controls button {
+    flex: 1 1 calc(50% - 10px); /* 한 줄에 2개씩 (간격 고려) */
+    max-width: calc(50% - 10px); /* 최대 너비 설정 */
+    box-sizing: border-box; /* 패딩, 보더가 너비에 포함되도록 */
+}
+
+/* 임시 해설 관련 스타일 */
+.explanation-section h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #f0f0f0;
+    font-size: 16px;
+}
+
+.action-button {
+    background-color: #555;
+}
+
+.action-button:hover {
+    background-color: #666;
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none; /* 기본적으로 숨김 */
+    position: fixed; /* 고정 위치 */
+    z-index: 1000; /* 다른 요소들 위에 표시 */
+    left: 0;
+    top: 0;
+    width: 100%; /* 전체 너비 */
+    height: 100%; /* 전체 높이 */
+    overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+    background-color: rgba(0,0,0,0.6); /* 어두운 배경 */
+    display: flex; /* ⭐ 추가: flex로 변경하여 내부 콘텐츠 중앙 정렬 */
+    justify-content: center; /* ⭐ 추가: 수평 가운데 정렬 */
+    align-items: center; /* ⭐ 추가: 수직 가운데 정렬 */
+}
+
+.modal-content {
+    background-color: #2b2b2b; /* 앱 컨테이너와 동일한 배경색 */
+    padding: 30px;
+    border: 1px solid #444;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    position: relative; /* 닫기 버튼 위치 지정을 위해 */
+}
+
+.modal-content h3 {
+    color: #f0f0f0;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+#checked-subject-checkboxes-container {
+    margin-top: 15px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background-color: #3a3a3a;
+    padding: 10px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* 모바일 화면 최적화 */
+@media (max-width: 600px) {
+    body {
+        margin: 10px;
+    }
+    #app {
+        padding: 15px;
+    }
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .quiz-controls button {
+        flex: 1 1 calc(50% - 10px); /* 한 줄에 2개씩 (gap 10px 고려) */
+        max-width: calc(50% - 10px); /* 최대 너비 설정 */
+    }
+	
+	/* 추가: 특정 버튼은 텍스트 길이를 고려하여 한 줄 전체를 사용하도록 예외 처리 */
+    /* 예를 들어 '마지막 푼 문제부터' 버튼처럼 텍스트가 긴 경우 */
+    #continue-last-quiz-button,
+    #export-explanations-button,
+    #clear-temp-explanations-button,
+    #start-checked-quiz-button, /* '체크 문제 다시 풀기'도 길 수 있음 */
+    #copy-question-button {/* '본문 복사'도 길 수 있음 */
+        flex: 1 1 100%; /* 한 줄 전체 사용 */
+        max-width: 100%;
+    }
+}

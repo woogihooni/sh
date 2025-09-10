@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>퀴즈 앱</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        
+        <div id="main-page" class="page">
+            <h2>퀴즈 - 회차 및 과목 선택</h2>
+            <div class="selection-group">
+                <label for="round-select"><b>회차 선택:</b></label>
+                <select id="round-select"></select>
+            </div>
+            <div class="selection-group">
+                <fieldset>
+                    <legend>과목 선택</legend>
+                    <button id="toggle-all-subjects-button">전체 선택</button>
+                    <div id="subject-checkboxes-container">
+                    </div>
+                </fieldset>
+            </div>
+            <button id="start-quiz-button">퀴즈 시작</button>
+            <button id="start-checked-quiz-button">체크 문제 다시 풀기</button>    
+            <button id="continue-last-quiz-button">마지막 푼 문제부터</button>
+            <div class="selection-group">
+                <button id="export-explanations-button" class="action-button">임시 저장 해설 내보내기</button>
+                <button id="clear-temp-explanations-button" class="action-button">임시 저장 해설 내용 지우기</button>
+            </div>
+			<div class="selection-group">
+				<button id="export-checked-questions-button" class="action-button">체크 문제 내보내기</button>
+				<button id="import-checked-questions-button" class="action-button">체크 문제 가져오기</button>
+				<input type="file" id="import-checked-file-input" style="display: none;" accept=".json,.txt">
+			</div>
+        </div>
+
+        <div id="quiz-page" class="page" style="display: none;">
+            <div class="quiz-info">
+                <span id="current-quiz-info"></span>
+            </div>
+            <div class="question-container">
+                <div class="question-header">
+                    <p id="question-content"></p>
+                    <input type="checkbox" id="question-checkbox">
+                </div>
+                <div id="view-section" class="view-section">
+                    <p id="view-content"></p>
+                    <img id="view-image" src="" alt="문제 보기 이미지" style="display: none; max-width: 100%; height: auto;">
+                </div>
+                <div id="options-container" class="options">
+                </div>
+            </div>
+            <div id="explanation-container" style="display: none;">
+                <p><b>해설:</b></p>
+            </div>
+
+            <div class="quiz-controls">
+                <button id="copy-question-button">본문 복사</button>
+                <button id="show-answer-button">정답 보기</button>
+                <button id="prev-button">이전 문제</button> <button id="next-button">다음 문제</button>
+                <button id="back-to-main-button">메인으로</button>
+            </div>
+            <div id="new-explanation-section" class="explanation-section" style="display: none;">
+                <h3>나의 해설 추가/수정</h3>
+                <textarea id="new-explanation-input" placeholder="여기에 나만의 해설을 입력하세요."></textarea>
+                <button id="save-explanation-button">해설 임시 저장</button>
+            </div>        
+        </div>
+
+        <div id="result-page" class="page" style="display: none;">
+            <h2>퀴즈 결과</h2>
+            <p id="score-display"></p>
+            <div class="result-controls">
+                <button id="next-round-button">다음 회차 풀기</button>
+                <button id="review-incorrect-button" style="display: none;">틀린 문제 풀기</button>
+                <button id="back-to-main-from-result-button">메인으로</button>
+            </div>
+        </div>
+
+        <div id="checked-quiz-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <h3>체크 문제 과목 선택</h3>
+                <div id="checked-subject-checkboxes-container" class="selection-group">
+                    </div>
+                <button id="confirm-checked-quiz-start">체크 문제 풀이 시작</button>
+				<button id="continue-last-checked-quiz-button" class="btn btn-secondary" style="display:none;"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
